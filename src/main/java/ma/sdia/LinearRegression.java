@@ -1,12 +1,16 @@
 package ma.sdia;
 
+import org.apache.spark.ml.feature.VectorAssembler;
+import org.apache.spark.ml.regression.LinearRegressionModel;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
-public class Main {
+public class LinearRegression {
     public static void main(String[] args) {
         SparkSession ss=SparkSession.builder().appName("Spark ML").master("local[*]").getOrCreate();
 
-        Dataset<Row> dataset=session.read().option("inferSchema", true).option("header",true).csv("advertising.csv");
+        Dataset<Row> dataset=ss.read().option("inferSchema", true).option("header",true).csv("advertising.csv");
 
         VectorAssembler vectorAssembler=new VectorAssembler().setInputCols(
                 new String[]{"TV","Radio","Newspaper"}
@@ -18,7 +22,7 @@ public class Main {
         Dataset<Row> train = splits[0];
         Dataset<Row> test = splits[1];
 
-        LinearRegression regression=new LinearRegression().setLabelCol("Sales").setFeaturesCol("Features");
+        org.apache.spark.ml.regression.LinearRegression regression=new org.apache.spark.ml.regression.LinearRegression().setLabelCol("Sales").setFeaturesCol("Features");
         LinearRegressionModel model = regression.fit(train);
         Dataset<Row> predictions = model.transform(test);
         predictions.show();
