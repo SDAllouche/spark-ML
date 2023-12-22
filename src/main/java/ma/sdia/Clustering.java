@@ -20,13 +20,13 @@ public class Clustering {
 
         VectorAssembler vectorAssembler=new VectorAssembler().setInputCols(
                 new String[]{"Age","Annual Income (k$)","Spending Score (1-100)"}
-        ).setOutputCol("Features");
+        ).setOutputCol("features");
 
         Dataset<Row> assembledDS = vectorAssembler.transform(dataset);
-        MinMaxScaler scaler=new MinMaxScaler().setInputCol("Features").setOutputCol("scaled_features");
+        MinMaxScaler scaler=new MinMaxScaler().setInputCol("features").setOutputCol("scaled_features");
         Dataset<Row> scaledFeatures=scaler.fit(assembledDS).transform(assembledDS);
 
-        KMeans kMeans=new KMeans().setK(3).setFeaturesCol("Features").setPredictionCol("cluster");
+        KMeans kMeans=new KMeans().setSeed(0).setK(5).setFeaturesCol("scaled_features").setPredictionCol("prediction");
 
         KMeansModel kMeansModel= kMeans.fit(scaledFeatures);
         Dataset<Row> prediction= kMeansModel.transform(scaledFeatures);
