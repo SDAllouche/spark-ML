@@ -1,11 +1,16 @@
 package ma.sdia;
 
+import org.apache.commons.math3.ml.clustering.evaluation.ClusterEvaluator;
 import org.apache.spark.ml.clustering.KMeans;
 import org.apache.spark.ml.clustering.KMeansModel;
+import org.apache.spark.ml.evaluation.ClusteringEvaluator;
+import org.apache.spark.ml.feature.MinMaxScaler;
 import org.apache.spark.ml.feature.VectorAssembler;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+
+import java.util.List;
 
 public class Clustering {
     public static void main(String[] args) {
@@ -18,11 +23,18 @@ public class Clustering {
         ).setOutputCol("Features");
 
         Dataset<Row> assembledDS = vectorAssembler.transform(dataset);
+        MinMaxScaler scaler=new MinMaxScaler().setInputCol("Features").setOutputCol("scaled_features");
+        Dataset<Row> scaledFeatures=scaler.fit(assembledDS).transform(assembledDS);
 
         KMeans kMeans=new KMeans().setK(3).setFeaturesCol("Features").setPredictionCol("cluster");
 
-        KMeansModel kMeansModel= kMeans.fit(assembledDS);
-        Dataset<Row> prediction= kMeansModel.transform(assembledDS);
+        KMeansModel kMeansModel= kMeans.fit(scaledFeatures);
+        Dataset<Row> prediction= kMeansModel.transform(scaledFeatures);
         prediction.show();
+
+        ClusteringEvaluator evaluator=new ClusteringEvaluator();
+        double score=evaluator.evaluate(prediction);
+        System.out.println("Evaluating Score : "+score);
+
     }
 }
