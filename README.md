@@ -26,8 +26,8 @@ Spark not only outperforms MapReduce, but also is compatible with the Hadoop eco
     </thead>
     <tbody>
         <tr>
-            <td><img src="Screenshots/"1.png"></td>
-            <td><img src="Screenshots/"2.png"></td>
+            <td><img src="Screenshots/1.png"></td>
+            <td><img src="Screenshots/2.png"></td>
         </tr>
     </tbody>
    <thead>
@@ -38,8 +38,8 @@ Spark not only outperforms MapReduce, but also is compatible with the Hadoop eco
     </thead>
     <tbody>
         <tr>
-            <td><img src="Screenshots/"3.png"></td>
-            <td><img src="Screenshots/""></td>
+            <td><img src="Screenshots/3.png"></td>
+            <td><img src="Screenshots/"></td>
         </tr>
     </tbody>
 </table>
@@ -56,9 +56,9 @@ Spark not only outperforms MapReduce, but also is compatible with the Hadoop eco
     </thead>
     <tbody>
         <tr>
-            <td><img src="Screenshots/"4.png"></td>
-            <td><img src="Screenshots/"5.pnh"></td>
-            <td><img src="Screenshots/"6.png"></td>
+            <td><img src="Screenshots/4.png"></td>
+            <td><img src="Screenshots/5.png"></td>
+            <td><img src="Screenshots/6.png"></td>
         </tr>
     </tbody>
 </table>
