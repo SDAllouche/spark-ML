@@ -11,6 +11,7 @@ public class LinearRegression {
         SparkSession ss=SparkSession.builder().appName("Spark ML").master("local[*]").getOrCreate();
 
         Dataset<Row> dataset=ss.read().option("inferSchema", true).option("header",true).csv("advertising.csv");
+        dataset.show();
 
         VectorAssembler vectorAssembler=new VectorAssembler().setInputCols(
                 new String[]{"TV","Radio","Newspaper"}

@@ -17,6 +17,7 @@ public class Clustering {
         SparkSession ss=SparkSession.builder().appName("Spark ML").master("local[*]").getOrCreate();
 
         Dataset<Row> dataset=ss.read().option("inferSchema", true).option("header",true).csv("Mall_Customers.csv");
+        dataset.show();
 
         VectorAssembler vectorAssembler=new VectorAssembler().setInputCols(
                 new String[]{"Age","Annual Income (k$)","Spending Score (1-100)"}
